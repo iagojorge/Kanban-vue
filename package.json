@@ -11,6 +11,7 @@
     "vue": "^3.2.13",
     "vue-router": "^4.0.3",
     "vue-smooth-dnd": "^0.8.1",
+    "vue3-smooth-dnd": "^0.0.6",
     "vuex": "^4.0.0"
   },
   "devDependencies": {
