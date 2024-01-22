@@ -152,6 +152,8 @@ html {
 
 .board {
   display: flex;
+  justify-content: space-between;
+  margin: 0 20% 0 20%;
 }
 
 .line {
