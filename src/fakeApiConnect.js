@@ -1,32 +1,62 @@
 export default {
-  conversas: [
-    { id: 1, name: "Iago", contactId: 10 },
-    { id: 2, name: "Ana", contactId: 11 },
-    { id: 3, name: "Lucas", contactId: 12 },
-    { id: 4, name: "Mariana", contactId: 13 },
-    { id: 5, name: "Pedro", contactId: 14 },
-    { id: 6, name: "Juliana", contactId: 15 },
-    { id: 7, name: "Fernando", contactId: 16 },
-    { id: 8, name: "Camila", contactId: 17 },
-    { id: 9, name: "Gabriel", contactId: 18 },
-    { id: 10, name: "Isabela", contactId: 19 },
-    { id: 11, name: "Ricardo", contactId: 20 },
-    { id: 12, name: "Amanda", contactId: 21 },
-    { id: 13, name: "Henrique", contactId: 22 },
-    { id: 14, name: "Laura", contactId: 23 },
-    { id: 15, name: "Vinícius", contactId: 24 },
-    { id: 16, name: "Carolina", contactId: 25 },
-    { id: 17, name: "Diego", contactId: 26 },
-    { id: 18, name: "Beatriz", contactId: 27 },
-    { id: 19, name: "Matheus", contactId: 28 },
-    { id: 20, name: "Giovanna", contactId: 29 },
-  ],
-  Marcacoes: [
-    { id: 1, name: "Importante", cor: "#FF5733" },
-    { id: 2, name: "Trabalho", cor: "#3498DB" },
-    { id: 3, name: "Estudo", cor: "#27AE60" },
-    { id: 4, name: "Lazer", cor: "#E74C3C" },
-    { id: 5, name: "Urgente", cor: "#FFC300" },
-    { id: 6, name: "Pessoal", cor: "#8E44AD" },
-  ],
-};
+    marcacoes: {
+      SemNada: {
+        id: 0,
+        cor: null,
+        conversas: [
+            { id: 134, name: "Tiaguinho", contactId: 103 },
+            { id: 122, name: "Olailson", contactId: 215 },
+            { id: 202, name: "Ketleyn", contactId: 296 },
+        ]
+      },
+      Importante: {
+        id: 1,
+        cor: "#FF5733",
+        conversas: [
+          { id: 1, name: "Iago", contactId: 10 },
+          { id: 12, name: "Amanda", contactId: 21 },
+          { id: 20, name: "Giovanna", contactId: 29 },
+        ],
+      },
+      Trabalho: {
+        id: 2,
+        cor: "#3498DB",
+        conversas: [
+          { id: 2, name: "Ana", contactId: 11 },
+          { id: 13, name: "Henrique", contactId: 22 },
+        ],
+      },
+      Estudo: {
+        id: 3,
+        cor: "#27AE60",
+        conversas: [
+          { id: 5, name: "Pedro", contactId: 14 },
+          { id: 15, name: "Vinícius", contactId: 24 },
+        ],
+      },
+      Lazer: {
+        id: 4,
+        cor: "#E74C3C",
+        conversas: [
+          { id: 7, name: "Fernando", contactId: 16 },
+          { id: 16, name: "Carolina", contactId: 25 },
+        ],
+      },
+      Urgente: {
+        id: 5,
+        cor: "#FFC300",
+        conversas: [
+          { id: 8, name: "Camila", contactId: 17 },
+          { id: 17, name: "Diego", contactId: 26 },
+        ],
+      },
+      Pessoal: {
+        id: 6,
+        cor: "#8E44AD",
+        conversas: [
+          { id: 10, name: "Isabela", contactId: 19 },
+          { id: 18, name: "Beatriz", contactId: 27 },
+        ],
+      },
+    },
+  };

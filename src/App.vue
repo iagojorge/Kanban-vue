@@ -2,66 +2,25 @@
   <div id="app">
     <Header />
     <div class="board">
-      <div class="line">
-        <h2 class="tittle">BackLog</h2>
+      <div
+        class="line"
+        v-for="(marcacaoKey, index) in Object.keys(marcacoes)"
+        :key="index"
+      >
+        <h2 class="tittle">{{ marcacaoKey }}</h2>
         <Container
-          group-name="collum"
-          @drag-start="handleDrag('backlog', $event)"
-          @drop="handleDrop('backlog', $event)"
+          group-name="column"
+          @drag-start="handleDrag(marcacaoKey, $event)"
+          @drop="handleDrop(marcacaoKey, $event)"
           :get-child-payload="getChildPayload"
-          :drop-placeholder="{className: 'drop'}"
+          :drop-placeholder="{ className: 'drop' }"
         >
-          <Draggable v-for="card in cards.backlog" :key="card.id">
+          <Draggable
+            v-for="conversa in marcacoes[marcacaoKey].conversas"
+            :key="conversa.id"
+          >
             <Card>
-              {{ card.text }}
-            </Card>
-          </Draggable>
-        </Container>
-      </div>
-      <div class="line">
-        <h2 class="tittle">In Progress</h2>
-        <Container
-          group-name="collum"
-          @drag-start="handleDrag('inp', $event)"
-          @drop="handleDrop('inp', $event)"
-          :get-child-payload="getChildPayload"
-          :drop-placeholder="{className: 'drop'}"
-        >
-          <Draggable v-for="card in cards.inp" :key="card.id">
-            <Card>
-              {{ card.text }}
-            </Card>
-          </Draggable>
-        </Container>
-      </div>
-      <div class="line">
-        <h2 class="tittle">To do</h2>
-        <Container
-          group-name="collum"
-          @drag-start="handleDrag('toDo', $event)"
-          @drop="handleDrop('toDo', $event)"
-          :get-child-payload="getChildPayload"
-          :drop-placeholder="{className: 'drop'}"
-        >
-          <Draggable v-for="card in cards.toDo" :key="card.id">
-            <Card>
-              {{ card.text }}
-            </Card>
-          </Draggable>
-        </Container>
-      </div>
-      <div class="line">
-        <h2 class="tittle">Review</h2>
-        <Container
-          group-name="collum"
-          @drag-start="handleDrag('review', $event)"
-          @drop="handleDrop('review', $event)"
-          :get-child-payload="getChildPayload"
-          :drop-placeholder="{className: 'drop'}"
-        >
-          <Draggable v-for="card in cards.review" :key="card.id">
-            <Card>
-              {{ card.text }}
+              {{ conversa.name }}
             </Card>
           </Draggable>
         </Container>
@@ -73,7 +32,7 @@
 <script>
 import Header from "./components/Header.vue";
 import Card from "./components/Card.vue";
-import fakeApi from "./fakeApi";
+import fakeApiConnect from "./fakeApiConnect";
 import { Container, Draggable } from "vue3-smooth-dnd";
 
 export default {
@@ -81,12 +40,7 @@ export default {
   components: { Header, Card, Container, Draggable },
   data() {
     return {
-      cards: {
-        backlog: fakeApi.backlog,
-        inp: fakeApi.inp,
-        toDo: fakeApi.toDo,
-        review: fakeApi.review,
-      },
+      marcacoes: fakeApiConnect.marcacoes,
       draggingCard: {
         line: "",
         index: -1,
@@ -102,24 +56,25 @@ export default {
           line,
           index: payload.index,
           cardData: {
-            ...this.cards[line][payload.index],
+            ...this.marcacoes[line].conversas[payload.index],
           },
         };
       }
     },
     handleDrop(line, dropResult) {
       const { removedIndex, addedIndex } = dropResult;
+      console.log(this.marcacoes[line])
 
       if (line === this.draggingCard.line && removedIndex === addedIndex) {
         return;
       }
 
       if (removedIndex !== null) {
-        this.cards[line].splice(removedIndex, 1);
+        this.marcacoes[line].conversas.splice(removedIndex, 1);
       }
 
       if (addedIndex !== null) {
-        this.cards[line].splice(addedIndex, 0, this.draggingCard.cardData);
+        this.marcacoes[line].conversas.splice(addedIndex, 0, this.draggingCard.cardData);
       }
     },
     getChildPayload(index) {
@@ -153,13 +108,13 @@ html {
 .board {
   display: flex;
   justify-content: space-between;
-  margin: 0 20% 0 20%;
+  margin: 0 10% 0 10%;
 }
 
 .line {
   background: black;
-  width: 23rem;
-  min-height: 20rem; 
+  width: 40rem;
+  min-height: 40rem;
   border-radius: 0.8rem;
   box-shadow: 0 0.1rem 0.2rem 0 rgba(33, 33, 33, 0.1);
   margin: 1.2rem 0.8rem;
@@ -169,9 +124,10 @@ html {
 .tittle {
   padding: 0.8rem 0.5rem;
   margin-bottom: 0.6rem;
+  font-size: 14px;
 }
 
-.drop{
+.drop {
   background: #22272b;
   border-radius: 0.4rem;
   transform: scaleY(0.85);
