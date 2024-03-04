@@ -1,32 +1,32 @@
 <template>
-  <div id="app">
-    <Header />
-    <div class="board">
-      <div
-        class="line"
-        v-for="(marcacaoKey, index) in Object.keys(marcacoes)"
-        :key="index"
+<div id="caixa">
+  <Header />
+  <div class="board" >
+    <div
+      class="line"
+      v-for="(marcacaoKey, index) in Object.keys(marcacoes)"
+      :key="index"
+    >
+      <h2 class="tittle">{{ marcacaoKey }}</h2>
+      <Container
+        group-name="column"
+        @drag-start="handleDrag(marcacaoKey, $event)"
+        @drop="handleDrop(marcacaoKey, $event)"
+        :get-child-payload="getChildPayload"
+        :drop-placeholder="{ className: 'drop' }"
       >
-        <h2 class="tittle">{{ marcacaoKey }}</h2>
-        <Container
-          group-name="column"
-          @drag-start="handleDrag(marcacaoKey, $event)"
-          @drop="handleDrop(marcacaoKey, $event)"
-          :get-child-payload="getChildPayload"
-          :drop-placeholder="{ className: 'drop' }"
+        <Draggable
+          v-for="conversa in marcacoes[marcacaoKey].conversas"
+          :key="conversa.id"
         >
-          <Draggable
-            v-for="conversa in marcacoes[marcacaoKey].conversas"
-            :key="conversa.id"
-          >
-            <Card>
-              {{ conversa.name }}
-            </Card>
-          </Draggable>
-        </Container>
-      </div>
+          <Card>
+            {{ conversa.name }}
+          </Card>
+        </Draggable>
+      </Container>
     </div>
   </div>
+</div>
 </template>
 
 <script>
@@ -89,11 +89,19 @@ export default {
 <style lang="scss">
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
 
-#app {
+#caixa {
   font-family: "Poppins", sans-serif;
   color: #ebecf0;
   font-weight: 600;
   line-height: 20px;
+  width: 90vw;
+  height: 90vh;
+  background: grey;
+  margin: 4rem auto 0 auto;
+  border: solid 4px;
+  display: flex;
+  padding: 1rem;
+  overflow-x: auto;
 }
 
 body,
